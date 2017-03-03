@@ -3,13 +3,14 @@
           package="net.gideonbros.dailymeal">
 
     <application
+        android:name="net.gideonbros.dailymeal.DailyMealApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".DailyMealActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
