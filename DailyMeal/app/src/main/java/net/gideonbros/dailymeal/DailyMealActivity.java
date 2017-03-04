@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.RelativeLayout;
 
 import net.gideonbros.dailymeal.data.models.DailyMealModel;
-import net.gideonbros.dailymeal.presentation.presenter.DailyMealPresenterImp;
 import net.gideonbros.dailymeal.presentation.presenter.IDailyMealPresenter;
 import net.gideonbros.dailymeal.presentation.view.IDailyMealView;
 import net.gideonbros.dailymeal.presentation.view.adapter.DailyMealRecyclerAdapter;

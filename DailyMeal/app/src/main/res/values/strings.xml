@@ -10,4 +10,6 @@
     <string name="item_description_holder">Item description holder</string>
 
     <string name="welcome">Welcome to Daily Meal App</string>string>
+
+    <string name="restaurant_details">Restaurant details</string>string>
 </resources>
