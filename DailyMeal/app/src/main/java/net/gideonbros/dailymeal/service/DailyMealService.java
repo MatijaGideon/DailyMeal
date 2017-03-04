@@ -4,6 +4,7 @@ import android.util.Log;
 
 import net.gideonbros.dailymeal.dagger.IAppComponent;
 import net.gideonbros.dailymeal.data.models.DailyMealModel;
+import net.gideonbros.dailymeal.data.repositories.DailyMealRepository;
 
 import java.util.List;
 
@@ -19,36 +20,39 @@ import retrofit2.Response;
  * Created by Matija on 3.3.2017..
  */
 
-public class DailyMealService {
+public class DailyMealService implements IDailyMealService {
     private static final String TAG = DailyMealService.class.getSimpleName();
 
     @Inject
     RetrofitApiService apiService;
 
     @Inject
-    Realm realmInstance;
+    DailyMealRepository repository;
 
     public DailyMealService(IAppComponent appComponent) {
         appComponent.inject(this);
     }
 
     public RealmResults<DailyMealModel> getLocalDailyMeals() {
-        return realmInstance.where(DailyMealModel.class).findAll();
+        return repository.getData();
+    }
+
+    @Override
+    public DailyMealModel getLocalDailyMealsById(int id) {
+        return repository.getData(id);
     }
 
     public void getDailyMealsAsync(Double latitude, Double longitude) {
-        Call<List<DailyMealModel>> call = apiService.getDailyMeal(latitude, longitude);
-        call.enqueue(new Callback<List<DailyMealModel>>() {
+        Call<RealmResults<DailyMealModel>> call = apiService.getDailyMeal(latitude, longitude);
+        call.enqueue(new Callback<RealmResults<DailyMealModel>>() {
             @Override
-            public void onResponse(Call<List<DailyMealModel>> call, Response<List<DailyMealModel>> response) {
-                List<DailyMealModel> list = response.body();
+            public void onResponse(Call<RealmResults<DailyMealModel>> call, Response<RealmResults<DailyMealModel>> response) {
+                RealmResults<DailyMealModel> list = response.body();
                 Log.d(TAG, "onResponse: " + list);
-                realmInstance.beginTransaction();
-                realmInstance.copyToRealmOrUpdate(list);
-                realmInstance.commitTransaction();
+                repository.saveData(list);;
             }
 
-            @Override public void onFailure(Call<List<DailyMealModel>> call, Throwable t) {
+            @Override public void onFailure(Call<RealmResults<DailyMealModel>> call, Throwable t) {
 
             }
         });

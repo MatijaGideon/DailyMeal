@@ -18,7 +18,6 @@ import io.realm.RealmResults;
  */
 @Singleton
 public class DailyMealRepository implements IDailyMealSource {
-
     private final IDailyMealSource mSecondDataSource;
 
     @Inject
@@ -27,7 +26,7 @@ public class DailyMealRepository implements IDailyMealSource {
     }
 
     @Override
-    public List<DailyMealModel> getData() {
+    public RealmResults<DailyMealModel> getData() {
         return mSecondDataSource.getData();
     }
 

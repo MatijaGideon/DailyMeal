@@ -15,7 +15,7 @@ import io.realm.RealmResults;
 
 public interface IDailyMealSource {
     @Nullable
-    List<DailyMealModel> getData();
+    RealmResults<DailyMealModel> getData();
 
     @Nullable
     DailyMealModel getData(@NonNull int id);

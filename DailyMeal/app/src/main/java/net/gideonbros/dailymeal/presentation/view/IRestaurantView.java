@@ -7,10 +7,9 @@ import net.gideonbros.dailymeal.data.models.DailyMealModel;
 import io.realm.RealmResults;
 
 /**
- * Created by Matija on 3.3.2017..
+ * Created by Matija on 4.3.2017..
  */
 
-public interface IDailyMealView {
-    void showWelcomeMessage();
-    void showDailyMeals(@NonNull RealmResults<DailyMealModel> dailyMealModels);
+public interface IRestaurantView {
+    void showRestaurantInfo(@NonNull DailyMealModel dailyMealModel);
 }

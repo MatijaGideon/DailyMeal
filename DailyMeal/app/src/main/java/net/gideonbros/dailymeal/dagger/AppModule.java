@@ -9,7 +9,10 @@ import net.gideonbros.dailymeal.data.sources.DailyMealSource;
 import net.gideonbros.dailymeal.data.sources.IDailyMealSource;
 import net.gideonbros.dailymeal.presentation.presenter.DailyMealPresenterImp;
 import net.gideonbros.dailymeal.presentation.presenter.IDailyMealPresenter;
+import net.gideonbros.dailymeal.presentation.presenter.IRestaurantPresenter;
+import net.gideonbros.dailymeal.presentation.presenter.RestaurantPresenterImp;
 import net.gideonbros.dailymeal.service.DailyMealService;
+import net.gideonbros.dailymeal.service.IDailyMealService;
 import net.gideonbros.dailymeal.service.RetrofitApiService;
 import net.gideonbros.dailymeal.service.RetrofitManager;
 
@@ -70,14 +73,20 @@ public class AppModule {
 
     @Provides
     @Singleton
-    DailyMealService getDailyMealService() {
+    IDailyMealService provideDailyMealService() {
         return new DailyMealService(app.getComponent());
     }
 
     @Provides
     @Singleton
-    IDailyMealPresenter secondPresenter() {
+    IDailyMealPresenter provideDailyMealPresenter() {
         return new DailyMealPresenterImp(app.getComponent());
+    }
+
+    @Provides
+    @Singleton
+    IRestaurantPresenter provideRestaurantPresenter() {
+        return new RestaurantPresenterImp(app.getComponent());
     }
 }
 

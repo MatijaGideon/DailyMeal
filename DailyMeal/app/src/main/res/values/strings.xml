@@ -5,4 +5,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="item_title_holder">Item title holder</string>
+    <string name="item_description_holder">Item description holder</string>
+
+    <string name="welcome">Welcome to Daily Meal App</string>string>
 </resources>

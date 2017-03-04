@@ -13,9 +13,9 @@ import java.io.IOException;
  */
 
 public class JsonSerializationAdapter extends TypeAdapter<DailyMealModel> {
+
     @Override
     public void write(JsonWriter out, DailyMealModel value) throws IOException {
-
     }
 
     @Override

@@ -28,7 +28,7 @@ public class DailyMealSource implements IDailyMealSource {
 
     @Nullable
     @Override
-    public List<DailyMealModel> getData() {
+    public RealmResults<DailyMealModel> getData() {
         return mRealm.where(DailyMealModel.class).findAll();
     }
 
