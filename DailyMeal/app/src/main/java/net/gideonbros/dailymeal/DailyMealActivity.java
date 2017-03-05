@@ -3,9 +3,13 @@ package net.gideonbros.dailymeal;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.widget.RelativeLayout;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import net.gideonbros.dailymeal.data.models.DailyMealModel;
 import net.gideonbros.dailymeal.presentation.presenter.IDailyMealPresenter;
@@ -14,21 +18,16 @@ import net.gideonbros.dailymeal.presentation.view.adapter.DailyMealRecyclerAdapt
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.realm.RealmResults;
 
-public class DailyMealActivity extends DrawerActivity implements IDailyMealView {
-
-    @BindView(R.id.daily_meal_recycler_view)
-    RecyclerView recyclerView;
-    @BindView(R.id.content_daily_meal)
-    RelativeLayout relativeLayout;
+public class DailyMealActivity extends NetworkActivity implements IDailyMealView, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, SearchView.OnQueryTextListener, DailyMealRecyclerAdapter.OnOrderClickListener {
 
     @Inject
     IDailyMealPresenter presenter;
 
-    private DailyMealRecyclerAdapter adapter;
+    DailyMealRecyclerAdapter adapter;
+
+    SearchView searchView;
 
     @Override
     int getLayoutId() {
@@ -38,21 +37,39 @@ public class DailyMealActivity extends DrawerActivity implements IDailyMealView 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((DailyMealApplication) getApplication())
-                .getComponent()
-                .inject(this);
-        ButterKnife.bind(this);
         initRecyclerView();
         presenter.setView(this);
     }
 
-    private void initRecyclerView() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new DailyMealRecyclerAdapter();
-        recyclerView.setAdapter(adapter);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.daily_meal, menu);
+
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(this);
+
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String searchString) {
+        presenter.filterData(searchString);
+        return true;
+    }
+
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    void onLocationFound() {
+        Snackbar.make(relativeLayout, String.format(getResources().getString(R.string.location_detected), mLastLocation.getLatitude(), mLastLocation.getLatitude()),
+                Snackbar.LENGTH_SHORT).show();
+        if(checkNetworkConnection()) presenter.startCollectingData(mLastLocation.getLatitude(), mLastLocation.getLatitude());
     }
 
     @Override
@@ -64,7 +81,22 @@ public class DailyMealActivity extends DrawerActivity implements IDailyMealView 
 
     @Override
     public void showDailyMeals(@NonNull RealmResults<DailyMealModel> dailyMealModels) {
+        adapter.setDailyMeals(dailyMealModels);
+    }
+
+    @Override
+    public void onClick(DailyMealModel dailyMealModel) {
 
     }
+
+    protected void initRecyclerView() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        adapter = new DailyMealRecyclerAdapter(this, );
+        recyclerView.setAdapter(adapter);
+    }
+
 
 }

@@ -8,4 +8,6 @@ import net.gideonbros.dailymeal.presentation.view.IDailyMealView;
 
 public interface IDailyMealPresenter {
     void setView(IDailyMealView view);
+    void startCollectingData(Double latitude, Double longitude);
+    void filterData(String searchString);
 }

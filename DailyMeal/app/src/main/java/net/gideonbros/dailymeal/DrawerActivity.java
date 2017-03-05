@@ -27,20 +27,25 @@ public abstract class DrawerActivity extends AppCompatActivity
     abstract int getLayoutId();
 
     @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    protected Toolbar toolbar;
     @BindView(R.id.fab)
-    FloatingActionButton fab;
+    protected FloatingActionButton fab;
     @BindView(R.id.drawer_layout)
-    DrawerLayout drawer;
+    protected DrawerLayout drawer;
     @BindView(R.id.nav_view)
-    NavigationView navigationView;
+    protected NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(getLayoutId());
 
+        ((DailyMealApplication) getApplication())
+                .getComponent()
+                .inject(DrawerActivity.this);
         ButterKnife.bind(this);
+
         setSupportActionBar(toolbar);
 
         if (fab != null) fab.setOnClickListener(new View.OnClickListener() {

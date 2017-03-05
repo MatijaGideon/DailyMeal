@@ -8,6 +8,7 @@ import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 import net.gideonbros.dailymeal.dagger.AppModule;
 import net.gideonbros.dailymeal.dagger.DaggerIAppComponent;
 import net.gideonbros.dailymeal.dagger.IAppComponent;
+import net.gideonbros.dailymeal.service.NetworkReceiver;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -17,10 +18,12 @@ import io.realm.RealmConfiguration;
  */
 
 public class DailyMealApplication extends Application {
-    private IAppComponent mComponent;
-
+    static DailyMealApplication instance;
+    IAppComponent component;
+;
     @Override public void onCreate() {
         super.onCreate();
+        instance = this;
 
         if (BuildConfig.DEBUG) {
             Stetho.initialize(Stetho.newInitializerBuilder(this)
@@ -34,10 +37,18 @@ public class DailyMealApplication extends Application {
                 new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
         Realm.setDefaultConfiguration(config);
 
-        mComponent = DaggerIAppComponent.builder().appModule(new AppModule(this)).build();
+        component = DaggerIAppComponent.builder().appModule(new AppModule(this)).build();
     }
 
     public IAppComponent getComponent() {
-        return mComponent;
+        return component;
+    }
+
+    public static synchronized DailyMealApplication getInstance() {
+        return instance;
+    }
+
+    public void setConnectivityListener(NetworkReceiver.ConnectionListener listener) {
+        NetworkReceiver.connectivityReceiverListener = listener;
     }
 }

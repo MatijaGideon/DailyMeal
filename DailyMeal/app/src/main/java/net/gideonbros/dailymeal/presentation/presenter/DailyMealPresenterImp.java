@@ -15,6 +15,8 @@ import javax.inject.Inject;
 
 public class DailyMealPresenterImp implements IDailyMealPresenter {
 
+    private static final String EMPTY_STRING = "";
+
     @Inject
     IDailyMealService service;
 
@@ -27,7 +29,16 @@ public class DailyMealPresenterImp implements IDailyMealPresenter {
     @Override
     public void setView(IDailyMealView view) {
         this.view = view;
-        this.view.showDailyMeals(service.getLocalDailyMeals());
-        //service.getDailyMealsAsync("London", this);
+        this.view.showDailyMeals(service.getLocalDailyMeals(EMPTY_STRING));
+    }
+
+    @Override
+    public void startCollectingData(Double latitude, Double longitude) {
+        service.getDailyMealsAsync(latitude, longitude);
+    }
+
+    @Override
+    public void filterData(String searchString) {
+        this.view.showDailyMeals(service.getLocalDailyMeals(searchString));
     }
 }

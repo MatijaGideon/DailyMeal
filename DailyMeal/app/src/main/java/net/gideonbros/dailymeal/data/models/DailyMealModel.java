@@ -1,5 +1,8 @@
 package net.gideonbros.dailymeal.data.models;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -9,76 +12,53 @@ import io.realm.annotations.PrimaryKey;
 
 public class DailyMealModel extends RealmObject {
     @PrimaryKey
-    private int id;
-    private String dailyMealName;
-    private String dailyMealDescription;
-    private String dailyMealImageUrl;
-    private String restaurantName;
-    private String restaurantAddress;
-    private String restaurantContactNumber;
-    private String restaurantImageUrl;
+    int id;
+    @NonNull
+    String dailyMealName;
+    @NonNull
+    String dailyMealDescription;
+    @NonNull
+    String dailyMealImageUrl;
+    @Nullable
+    String dailyMealTopReview;
+    @NonNull
+    RestaurantModel restaurant;
+
+    public DailyMealModel(int id, int restaurantId, @NonNull String dailyMealName, @NonNull String dailyMealDescription, @NonNull String dailyMealImageUrl, String dailyMealTopReview, @NonNull RestaurantModel restaurant) {
+        this.id = id;
+        this.dailyMealName = dailyMealName;
+        this.dailyMealDescription = dailyMealDescription;
+        this.dailyMealImageUrl = dailyMealImageUrl;
+        this.dailyMealTopReview = dailyMealTopReview;
+        this.restaurant = restaurant;
+    }
+
+    @Nullable
+    public String getDailyMealTopReview() {
+        return dailyMealTopReview;
+    }
+
+    @NonNull
+    public String getDailyMealName() {
+        return dailyMealName;
+    }
+
+    @NonNull
+    public String getDailyMealDescription() {
+        return dailyMealDescription;
+    }
+
+    @NonNull
+    public String getDailyMealImageUrl() {
+        return dailyMealImageUrl;
+    }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getDailyMealName() {
-        return dailyMealName;
-    }
-
-    public void setDailyMealName(String dailyMealName) {
-        this.dailyMealName = dailyMealName;
-    }
-
-    public String getDailyMealDescription() {
-        return dailyMealDescription;
-    }
-
-    public void setDailyMealDescription(String dailyMealDescription) {
-        this.dailyMealDescription = dailyMealDescription;
-    }
-
-    public String getDailyMealImageUrl() {
-        return dailyMealImageUrl;
-    }
-
-    public void setDailyMealImageUrl(String dailyMealImageUrl) {
-        this.dailyMealImageUrl = dailyMealImageUrl;
-    }
-
-    public String getRestaurantName() {
-        return restaurantName;
-    }
-
-    public void setRestaurantName(String restaurantName) {
-        this.restaurantName = restaurantName;
-    }
-
-    public String getRestaurantAddress() {
-        return restaurantAddress;
-    }
-
-    public void setRestaurantAddress(String restaurantAddress) {
-        this.restaurantAddress = restaurantAddress;
-    }
-
-    public String getRestaurantContactNumber() {
-        return restaurantContactNumber;
-    }
-
-    public void setRestaurantContactNumber(String restaurantContactNumber) {
-        this.restaurantContactNumber = restaurantContactNumber;
-    }
-
-    public String getRestaurantImageUrl() {
-        return restaurantImageUrl;
-    }
-
-    public void setRestaurantImageUrl(String restaurantImageUrl) {
-        this.restaurantImageUrl = restaurantImageUrl;
+    @NonNull
+    public RestaurantModel getRestaurant() {
+        return restaurant;
     }
 }

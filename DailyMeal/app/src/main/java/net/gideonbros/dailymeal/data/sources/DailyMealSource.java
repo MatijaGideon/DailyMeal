@@ -28,8 +28,11 @@ public class DailyMealSource implements IDailyMealSource {
 
     @Nullable
     @Override
-    public RealmResults<DailyMealModel> getData() {
-        return mRealm.where(DailyMealModel.class).findAll();
+    public RealmResults<DailyMealModel> getData(String searchString) {
+        if (searchString == null || "".equals(searchString))
+            return mRealm.where(DailyMealModel.class).findAll().sort("");
+        else
+            return mRealm.where(DailyMealModel.class).contains("dailyMealName", searchString).or().contains("restaurant.restaurantName", searchString).or().contains("restaurant.restaurantAddress", searchString).findAll();
     }
 
     @Nullable

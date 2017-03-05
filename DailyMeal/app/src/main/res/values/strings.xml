@@ -12,4 +12,17 @@
     <string name="welcome">Welcome to Daily Meal App</string>string>
 
     <string name="restaurant_details">Restaurant details</string>string>
+
+    <string name="location_connection_failed">Location connection_failed</string>
+    <string name="location_detected">Location detected - Latitude:  %1$d , Longitude: %2$d </string>
+    <string name="no_location_detected">Location not detected</string>
+    <string name="permission_location_rationale">Location permission is needed to get the location.</string>
+    <string name="permission_location_available">Location permission has been granted.</string>
+    <string name="permission_location_not_granted">Location permissions were not granted.</string>
+
+    <string name="connected_to_network">Location permission has been granted.</string>
+    <string name="failed_to_connect_to_network">Failed to connect to network.</string>
+    <string name="ok">OK</string>
+
+    <string name="search_by">Search by name, restaurant, location...</string>
 </resources>

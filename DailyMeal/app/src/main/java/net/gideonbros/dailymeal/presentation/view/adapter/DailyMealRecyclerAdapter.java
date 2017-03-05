@@ -2,6 +2,7 @@ package net.gideonbros.dailymeal.presentation.view.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.ContentFrameLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -35,18 +36,21 @@ public class DailyMealRecyclerAdapter extends RecyclerView.Adapter
     private Context context;
     @NonNull
     private OnOrderClickListener listener;
+    @Nullable
     private RealmResults<DailyMealModel> dailyMeals;
 
     public interface OnOrderClickListener {
         void onClick(DailyMealModel dailyMealModel);
     }
 
-    public DailyMealRecyclerAdapter() {
-    }
+    public DailyMealRecyclerAdapter() {}
 
-    public void setDailyMeals(Context context, OnOrderClickListener listener, RealmResults<DailyMealModel> dailyMeals) {
+    public DailyMealRecyclerAdapter(Context context, OnOrderClickListener listener) {
         this.context = context;
         this.listener = listener;
+    }
+
+    public void setDailyMeals(RealmResults<DailyMealModel> dailyMeals) {
         this.dailyMeals = dailyMeals;
         this.dailyMeals.addChangeListener(this);
         notifyDataSetChanged();
@@ -56,7 +60,6 @@ public class DailyMealRecyclerAdapter extends RecyclerView.Adapter
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
         View view =
                 LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item_daily_meal, parent, false);
-
         return new DailyMealViewHolder(view);
     }
 

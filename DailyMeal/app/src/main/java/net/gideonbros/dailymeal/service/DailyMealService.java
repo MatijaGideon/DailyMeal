@@ -33,8 +33,8 @@ public class DailyMealService implements IDailyMealService {
         appComponent.inject(this);
     }
 
-    public RealmResults<DailyMealModel> getLocalDailyMeals() {
-        return repository.getData();
+    public RealmResults<DailyMealModel> getLocalDailyMeals(String searchString) {
+        return repository.getData(searchString);
     }
 
     @Override

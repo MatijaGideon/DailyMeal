@@ -18,31 +18,31 @@ import io.realm.RealmResults;
  */
 @Singleton
 public class DailyMealRepository implements IDailyMealSource {
-    private final IDailyMealSource mSecondDataSource;
+    private final IDailyMealSource mDataSource;
 
     @Inject
     public DailyMealRepository(IDailyMealSource dataSource) {
-        mSecondDataSource = dataSource;
+        mDataSource = dataSource;
     }
 
     @Override
-    public RealmResults<DailyMealModel> getData() {
-        return mSecondDataSource.getData();
+    public RealmResults<DailyMealModel> getData(String searchString) {
+        return mDataSource.getData(searchString);
     }
 
     @Nullable
     @Override
     public DailyMealModel getData(@NonNull int id) {
-        return mSecondDataSource.getData(id);
+        return mDataSource.getData(id);
     }
 
     @Override
     public void saveData(@NonNull RealmResults<DailyMealModel> model) {
-        mSecondDataSource.saveData(model);
+        mDataSource.saveData(model);
     }
 
     @Override
     public void deleteData(@NonNull DailyMealModel model) {
-        mSecondDataSource.deleteData(model);
+        mDataSource.deleteData(model);
     }
 }

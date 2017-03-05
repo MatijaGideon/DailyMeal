@@ -88,5 +88,6 @@ public class AppModule {
     IRestaurantPresenter provideRestaurantPresenter() {
         return new RestaurantPresenterImp(app.getComponent());
     }
+
 }
 

@@ -10,6 +10,6 @@ import io.realm.RealmResults;
 
 public interface IDailyMealService {
     void getDailyMealsAsync(Double latitude, Double longitude);
-    RealmResults<DailyMealModel> getLocalDailyMeals();
+    RealmResults<DailyMealModel> getLocalDailyMeals(String searchString);
     DailyMealModel getLocalDailyMealsById(int id);
 }
