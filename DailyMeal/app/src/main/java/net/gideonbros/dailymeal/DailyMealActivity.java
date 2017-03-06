@@ -23,7 +23,6 @@ public class DailyMealActivity extends NetworkActivity
 
   @Inject IDailyMealPresenter presenter;
 
-  DailyMealRecyclerAdapter.OnClickListener onOrderClickListener;
   DailyMealRecyclerAdapter adapter;
   SearchView searchView;
 
@@ -101,7 +100,7 @@ public class DailyMealActivity extends NetworkActivity
     linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
     recyclerView.setHasFixedSize(true);
     recyclerView.setLayoutManager(linearLayoutManager);
-    adapter = new DailyMealRecyclerAdapter(this, onOrderClickListener);
+    adapter = new DailyMealRecyclerAdapter(this, this);
     recyclerView.setAdapter(adapter);
   }
 }

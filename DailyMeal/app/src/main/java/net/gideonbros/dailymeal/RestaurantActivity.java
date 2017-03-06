@@ -58,7 +58,7 @@ public class RestaurantActivity extends AppCompatActivity implements IRestaurant
         collapsingToolbar.setTitle("Title");
         detail.setText("Detail");
         location.setText("Location");
-        image.setImageDrawable(getResources().getDrawable(R.drawable.a, getTheme()));
+        image.setImageDrawable(getResources().getDrawable(R.drawable.food_table, getTheme()));
 
         presenter.setView(this, 1);
     }
