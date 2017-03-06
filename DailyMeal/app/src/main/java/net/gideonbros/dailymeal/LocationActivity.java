@@ -29,7 +29,7 @@ import butterknife.BindView;
  * Created by Matija on 5.3.2017..
  */
 
-public abstract class LocationActivity extends DrawerActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public abstract class LocationActivity extends DrawerActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     abstract void onLocationFound();
 

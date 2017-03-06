@@ -106,7 +106,7 @@ public class RestaurantActivity extends AppCompatActivity implements IRestaurant
     @OnClick(R.id.phoneLayout)
     public void callRestaurant() {
         Intent intent = new Intent(Intent.ACTION_CALL);
-        intent.setData(Uri.parse(restaurantModel.getRestaurantNumber()));
+        intent.setData(Uri.parse("tel:" + restaurantModel.getRestaurantNumber()));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             requestCallPermission();
