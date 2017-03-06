@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class RetrofitManager {
-    private static final String API_ENDPOINT = "http://api";
+    private static final String API_ENDPOINT = "http://api.dailymeal.com";
 
     public static RetrofitApiService getService(){
         OkHttpClient client = new OkHttpClient();

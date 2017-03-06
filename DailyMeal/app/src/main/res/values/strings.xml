@@ -20,7 +20,7 @@
     <string name="permission_location_available">Location permission has been granted.</string>
     <string name="permission_location_not_granted">Location permissions were not granted.</string>
 
-    <string name="connected_to_network">Location permission has been granted.</string>
+    <string name="connected_to_network">Connected to network.</string>
     <string name="failed_to_connect_to_network">Failed to connect to network.</string>
     <string name="ok">OK</string>
 

@@ -37,7 +37,7 @@ public class DailyMealRepository implements IDailyMealSource {
     }
 
     @Override
-    public void saveData(@NonNull RealmResults<DailyMealModel> model) {
+    public void saveData(@NonNull List<DailyMealModel> model) {
         mDataSource.saveData(model);
     }
 

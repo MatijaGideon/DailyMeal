@@ -20,7 +20,7 @@ public interface IDailyMealSource {
     @Nullable
     DailyMealModel getData(@NonNull int id);
 
-    void saveData(@NonNull RealmResults<DailyMealModel> model);
+    void saveData(@NonNull List<DailyMealModel> model);
 
     void deleteData(@NonNull DailyMealModel model);
 }

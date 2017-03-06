@@ -43,7 +43,7 @@ public abstract class NetworkActivity extends LocationActivity implements Networ
                     Snackbar.LENGTH_SHORT).show();
         else
             Snackbar.make(relativeLayout, R.string.failed_to_connect_to_network,
-                    Snackbar.LENGTH_SHORT).show();
+                    Snackbar.LENGTH_INDEFINITE).show();
     }
 
 

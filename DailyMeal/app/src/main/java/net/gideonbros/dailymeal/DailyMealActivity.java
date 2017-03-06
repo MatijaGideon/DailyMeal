@@ -8,95 +8,90 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import com.google.android.gms.common.api.GoogleApiClient;
-
+import io.realm.RealmResults;
+import javax.inject.Inject;
 import net.gideonbros.dailymeal.data.models.DailyMealModel;
 import net.gideonbros.dailymeal.presentation.presenter.IDailyMealPresenter;
 import net.gideonbros.dailymeal.presentation.view.IDailyMealView;
 import net.gideonbros.dailymeal.presentation.view.adapter.DailyMealRecyclerAdapter;
 
-import javax.inject.Inject;
+public class DailyMealActivity extends NetworkActivity
+    implements IDailyMealView, GoogleApiClient.ConnectionCallbacks,
+    GoogleApiClient.OnConnectionFailedListener, SearchView.OnQueryTextListener,
+    DailyMealRecyclerAdapter.OnOrderClickListener {
 
-import io.realm.RealmResults;
+  @Inject IDailyMealPresenter presenter;
 
-public class DailyMealActivity extends NetworkActivity implements IDailyMealView, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, SearchView.OnQueryTextListener, DailyMealRecyclerAdapter.OnOrderClickListener {
+  DailyMealRecyclerAdapter.OnOrderClickListener onOrderClickListener;
+  DailyMealRecyclerAdapter adapter;
+  SearchView searchView;
 
-    @Inject
-    IDailyMealPresenter presenter;
+  @Override int getLayoutId() {
+    return R.layout.activity_daily_meal;
+  }
 
-    DailyMealRecyclerAdapter adapter;
+  @Override protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    initRecyclerView();
+    presenter.setView(this);
+  }
 
-    SearchView searchView;
+  @Override protected void onDestroy() {
+    super.onDestroy();
+    presenter.removeView(this);
+  }
 
-    @Override
-    int getLayoutId() {
-        return R.layout.activity_daily_meal;
+  @Override public boolean onCreateOptionsMenu(Menu menu) {
+    super.onCreateOptionsMenu(menu);
+    getMenuInflater().inflate(R.menu.daily_meal, menu);
+
+    final MenuItem searchItem = menu.findItem(R.id.action_search);
+    searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+    searchView.setOnQueryTextListener(this);
+
+    return true;
+  }
+
+  @Override public boolean onQueryTextChange(String searchString) {
+    presenter.filterData(searchString);
+    return true;
+  }
+
+  @Override public boolean onQueryTextSubmit(String query) {
+    return false;
+  }
+
+  @Override void onLocationFound() {
+    Snackbar.make(relativeLayout,
+        String.format(getResources().getString(R.string.location_detected),
+            mLastLocation.getLatitude(), mLastLocation.getLatitude()), Snackbar.LENGTH_SHORT)
+        .show();
+    if (checkNetworkConnection()) {
+      presenter.startCollectingData(mLastLocation.getLatitude(), mLastLocation.getLatitude());
     }
+  }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initRecyclerView();
-        presenter.setView(this);
-    }
+  @Override public void showWelcomeMessage() {
+    Snackbar snackbar =
+        Snackbar.make(relativeLayout, getString(R.string.welcome), Snackbar.LENGTH_SHORT);
+    snackbar.show();
+  }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.daily_meal, menu);
+  @Override public void showDailyMeals(@NonNull RealmResults<DailyMealModel> dailyMealModels) {
+    adapter.setDailyMeals(dailyMealModels);
+  }
 
-        final MenuItem searchItem = menu.findItem(R.id.action_search);
-        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        searchView.setOnQueryTextListener(this);
+  @Override public void onClick(DailyMealModel dailyMealModel) {
 
-        return true;
-    }
+  }
 
-    @Override
-    public boolean onQueryTextChange(String searchString) {
-        presenter.filterData(searchString);
-        return true;
-    }
-
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
-    @Override
-    void onLocationFound() {
-        Snackbar.make(relativeLayout, String.format(getResources().getString(R.string.location_detected), mLastLocation.getLatitude(), mLastLocation.getLatitude()),
-                Snackbar.LENGTH_SHORT).show();
-        if(checkNetworkConnection()) presenter.startCollectingData(mLastLocation.getLatitude(), mLastLocation.getLatitude());
-    }
-
-    @Override
-    public void showWelcomeMessage() {
-        Snackbar snackbar =
-                Snackbar.make(relativeLayout, getString(R.string.welcome), Snackbar.LENGTH_SHORT);
-        snackbar.show();
-    }
-
-    @Override
-    public void showDailyMeals(@NonNull RealmResults<DailyMealModel> dailyMealModels) {
-        adapter.setDailyMeals(dailyMealModels);
-    }
-
-    @Override
-    public void onClick(DailyMealModel dailyMealModel) {
-
-    }
-
-    protected void initRecyclerView() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new DailyMealRecyclerAdapter(this, );
-        recyclerView.setAdapter(adapter);
-    }
-
-
+  protected void initRecyclerView() {
+    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+    linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+    recyclerView.setHasFixedSize(true);
+    recyclerView.setLayoutManager(linearLayoutManager);
+    adapter = new DailyMealRecyclerAdapter(this, onOrderClickListener);
+    recyclerView.setAdapter(adapter);
+  }
 }

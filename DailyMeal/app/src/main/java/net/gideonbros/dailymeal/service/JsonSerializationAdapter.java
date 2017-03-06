@@ -20,6 +20,7 @@ public class JsonSerializationAdapter extends TypeAdapter<DailyMealModel> {
 
     @Override
     public DailyMealModel read(JsonReader in) throws IOException {
+        //TODO: implement JSONSerilization!
         return null;
     }
 }

@@ -1,17 +1,12 @@
 package net.gideonbros.dailymeal.service;
 
 import android.util.Log;
-
+import io.realm.RealmResults;
+import java.util.List;
+import javax.inject.Inject;
 import net.gideonbros.dailymeal.dagger.IAppComponent;
 import net.gideonbros.dailymeal.data.models.DailyMealModel;
 import net.gideonbros.dailymeal.data.repositories.DailyMealRepository;
-
-import java.util.List;
-
-import javax.inject.Inject;
-
-import io.realm.Realm;
-import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,40 +16,44 @@ import retrofit2.Response;
  */
 
 public class DailyMealService implements IDailyMealService {
-    private static final String TAG = DailyMealService.class.getSimpleName();
+  private static final String TAG = DailyMealService.class.getSimpleName();
 
-    @Inject
-    RetrofitApiService apiService;
+  @Inject RetrofitApiService apiService;
 
-    @Inject
-    DailyMealRepository repository;
+  @Inject DailyMealRepository repository;
 
-    public DailyMealService(IAppComponent appComponent) {
-        appComponent.inject(this);
-    }
+  public DailyMealService(IAppComponent appComponent) {
+    appComponent.inject(this);
+  }
 
-    public RealmResults<DailyMealModel> getLocalDailyMeals(String searchString) {
-        return repository.getData(searchString);
-    }
+  public RealmResults<DailyMealModel> getLocalDailyMeals(String searchString) {
+    return repository.getData(searchString);
+  }
 
-    @Override
-    public DailyMealModel getLocalDailyMealsById(int id) {
-        return repository.getData(id);
-    }
+  @Override public DailyMealModel getLocalDailyMealsById(int id) {
+    return repository.getData(id);
+  }
 
-    public void getDailyMealsAsync(Double latitude, Double longitude) {
-        Call<RealmResults<DailyMealModel>> call = apiService.getDailyMeal(latitude, longitude);
-        call.enqueue(new Callback<RealmResults<DailyMealModel>>() {
-            @Override
-            public void onResponse(Call<RealmResults<DailyMealModel>> call, Response<RealmResults<DailyMealModel>> response) {
-                RealmResults<DailyMealModel> list = response.body();
-                Log.d(TAG, "onResponse: " + list);
-                repository.saveData(list);;
-            }
+  public void getDailyMealsAsync(Double latitude, Double longitude, Integer range,
+      Integer maxNumberOfMeals) {
+    Call<List<DailyMealModel>> call =
+        apiService.getDailyMeal(latitude, longitude, range, maxNumberOfMeals);
+    call.enqueue(new Callback<List<DailyMealModel>>() {
+      @Override public void onResponse(Call<List<DailyMealModel>> call,
+          Response<List<DailyMealModel>> response) {
+        List<DailyMealModel> list = response.body();
+        Log.d(TAG, "onResponse: " + list);
+        repository.saveData(list);
+      }
 
-            @Override public void onFailure(Call<RealmResults<DailyMealModel>> call, Throwable t) {
+      @Override public void onFailure(Call<List<DailyMealModel>> call, Throwable t) {
 
-            }
-        });
-    }
+      }
+    });
+  }
+
+  public void getGeneratedDailyMealsAsync(Double latitude, Double longitude, Integer range,
+      Integer maxNumberOfMeals) {
+
+  }
 }
