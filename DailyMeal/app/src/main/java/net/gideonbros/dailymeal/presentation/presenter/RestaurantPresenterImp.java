@@ -18,16 +18,16 @@ public class RestaurantPresenterImp implements IRestaurantPresenter {
     @Inject
     IDailyMealService service;
 
-    private IRestaurantView view;
+    IRestaurantView view;
 
     public RestaurantPresenterImp(@NonNull IAppComponent appComponent) {
         appComponent.inject(this);
     }
 
     @Override
-    public void setView(IRestaurantView view, int dailyMealId) {
+    public void setView(IRestaurantView view, int restaurantId) {
         this.view = view;
-        //this.view.showRestaurantInfo(service.getLocalDailyMealsById(dailyMealId));
+        this.view.showRestaurantInfo(service.getRestaurantById(restaurantId));
     }
 
 }

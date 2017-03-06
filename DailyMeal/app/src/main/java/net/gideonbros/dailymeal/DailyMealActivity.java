@@ -1,5 +1,6 @@
 package net.gideonbros.dailymeal;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -91,8 +92,10 @@ public class DailyMealActivity extends NetworkActivity
     adapter.setDailyMeals(dailyMealModels);
   }
 
-  @Override public void onOrderClick(DailyMealModel dailyMealModel) {
-
+  @Override public void onOrderClick(int restaurantId) {
+    Intent myIntent = new Intent(this, RestaurantActivity.class);
+    myIntent.putExtra(RestaurantActivity.RESTAURANT_ID, restaurantId);
+    startActivity(myIntent);
   }
 
   protected void initRecyclerView() {

@@ -1,13 +1,18 @@
 package net.gideonbros.dailymeal;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -15,6 +20,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationServices;
 
 import butterknife.BindView;
@@ -23,7 +29,7 @@ import butterknife.BindView;
  * Created by Matija on 5.3.2017..
  */
 
-public abstract class LocationActivity extends DrawerActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public abstract class LocationActivity extends DrawerActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     abstract void onLocationFound();
 
@@ -75,7 +81,7 @@ public abstract class LocationActivity extends DrawerActivity implements GoogleA
                 onLocationFound();
             } else {
                 Snackbar.make(relativeLayout, R.string.no_location_detected,
-                        Snackbar.LENGTH_SHORT).show();
+                        Snackbar.LENGTH_LONG).show();
             }
         }
     }
@@ -111,6 +117,38 @@ public abstract class LocationActivity extends DrawerActivity implements GoogleA
             ActivityCompat.requestPermissions(this,
                     PERMISSIONS_LOCATION,
                     REQUEST_LOCATION);
+        }
+    }
+
+    protected boolean isLocationServiceEnabled() {
+        LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
+        boolean gps_enabled = false;
+        boolean network_enabled = false;
+
+        gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+        return (gps_enabled || network_enabled);
+    }
+
+    protected void requestLocationServicePermission() {
+        if (!isLocationServiceEnabled()) {
+            // notify user
+            final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.setMessage(getResources().getString(R.string.location_settings_not_enabled));
+            dialog.setPositiveButton(getResources().getString(R.string.open_location_settings), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivity(myIntent);
+                }
+            });
+            dialog.setNegativeButton(getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                }
+            });
+            dialog.show();
         }
     }
 

@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import net.gideonbros.dailymeal.data.models.DailyMealModel;
+import net.gideonbros.dailymeal.data.models.RestaurantModel;
 import net.gideonbros.dailymeal.data.sources.IDailyMealSource;
 
 import java.util.List;
@@ -32,8 +33,14 @@ public class DailyMealRepository implements IDailyMealSource {
 
     @Nullable
     @Override
-    public DailyMealModel getData(@NonNull int id) {
+    public DailyMealModel getData(int id) {
         return mDataSource.getData(id);
+    }
+
+    @Nullable
+    @Override
+    public RestaurantModel getRestaurant(int id) {
+        return mDataSource.getRestaurant(id);
     }
 
     @Override

@@ -25,9 +25,23 @@
     <string name="connected_to_network">Connected to network.</string>
     <string name="failed_to_connect_to_network">Failed to connect to network.</string>
     <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="location_settings_not_enabled">Location settings not enabled</string>
+    <string name="open_location_settings">Open location settings</string>
 
     <string name="search_by">Search by name, restaurant, location...</string>
-
     <string name="communicate">Communicate</string>
     <string name="menu_rate">Rate app</string>
+
+    <string name="phone">Phone</string>
+    <string name="email">Email</string>
+    <string name="address">Address</string>
+    <string name="website">Website</string>
+    <string name="phone_holder">Unknown</string>
+    <string name="email_holder">Unknown</string>
+    <string name="address_holder">Unknown</string>
+    <string name="website_holder">Unknown</string>
+
+
 </resources>

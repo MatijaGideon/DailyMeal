@@ -3,6 +3,7 @@ package net.gideonbros.dailymeal.presentation.view;
 import android.support.annotation.NonNull;
 
 import net.gideonbros.dailymeal.data.models.DailyMealModel;
+import net.gideonbros.dailymeal.data.models.RestaurantModel;
 
 import io.realm.RealmResults;
 
@@ -11,5 +12,5 @@ import io.realm.RealmResults;
  */
 
 public interface IRestaurantView {
-    void showRestaurantInfo(@NonNull DailyMealModel dailyMealModel);
+    void showRestaurantInfo(@NonNull RestaurantModel restaurantModel);
 }

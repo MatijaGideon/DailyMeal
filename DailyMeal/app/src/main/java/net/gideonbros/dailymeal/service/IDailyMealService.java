@@ -1,6 +1,7 @@
 package net.gideonbros.dailymeal.service;
 
 import net.gideonbros.dailymeal.data.models.DailyMealModel;
+import net.gideonbros.dailymeal.data.models.RestaurantModel;
 
 import io.realm.RealmResults;
 
@@ -12,5 +13,5 @@ public interface IDailyMealService {
     void getDailyMealsAsync(Double latitude, Double longitude, Integer range, Integer maxNumberOfMeals);
     void getGeneratedDailyMealsAsync(Double latitude, Double longitude, Integer range, Integer maxNumberOfMeals);
     RealmResults<DailyMealModel> getLocalDailyMeals(String searchString);
-    DailyMealModel getLocalDailyMealsById(int id);
+    RestaurantModel getRestaurantById(int id);
 }

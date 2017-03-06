@@ -32,7 +32,7 @@ public class DailyMealRecyclerAdapter extends RecyclerView.Adapter
   @Nullable private RealmResults<DailyMealModel> dailyMeals;
 
   public interface OnClickListener {
-    void onOrderClick(DailyMealModel dailyMealModel);
+    void onOrderClick(int restaurantId);
   }
 
   public DailyMealRecyclerAdapter(Context context, OnClickListener listener) {
@@ -98,7 +98,7 @@ public class DailyMealRecyclerAdapter extends RecyclerView.Adapter
       dailyMealDescription.setText(dailyMealModel.getDailyMealDescription());
       dailyMealOrder.setOnClickListener(new View.OnClickListener() {
         @Override public void onClick(View v) {
-          listener.onOrderClick(dailyMealModel);
+          listener.onOrderClick(dailyMealModel.getRestaurant().getId());
         }
       });
     }

@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import net.gideonbros.dailymeal.data.models.DailyMealModel;
+import net.gideonbros.dailymeal.data.models.RestaurantModel;
 
 import java.util.List;
 
@@ -18,7 +19,10 @@ public interface IDailyMealSource {
     RealmResults<DailyMealModel> getData(String searchString);
 
     @Nullable
-    DailyMealModel getData(@NonNull int id);
+    DailyMealModel getData(int id);
+
+    @Nullable
+    RestaurantModel getRestaurant(int id);
 
     void saveData(@NonNull List<DailyMealModel> model);
 

@@ -14,7 +14,7 @@ public class RestaurantModel extends RealmObject {
   @PrimaryKey int id;
   @NonNull String restaurantName;
   @NonNull String restaurantAddress;
-  @NonNull String restaurantContactNumber;
+  @NonNull String restaurantNumber;
   @NonNull String restaurantImageUrl;
   @Nullable String restaurantEmail;
   @Nullable String restaurantWebPage;
@@ -29,7 +29,7 @@ public class RestaurantModel extends RealmObject {
     this.id = id;
     this.restaurantName = restaurantName;
     this.restaurantAddress = restaurantAddress;
-    this.restaurantContactNumber = restaurantContactNumber;
+    this.restaurantNumber = restaurantContactNumber;
     this.restaurantImageUrl = restaurantImageUrl;
     this.restaurantEmail = restaurantEmail;
   }
@@ -42,8 +42,8 @@ public class RestaurantModel extends RealmObject {
     return restaurantAddress;
   }
 
-  @NonNull public String getRestaurantContactNumber() {
-    return restaurantContactNumber;
+  @NonNull public String getRestaurantNumber() {
+    return restaurantNumber;
   }
 
   @NonNull public String getRestaurantImageUrl() {
@@ -56,5 +56,9 @@ public class RestaurantModel extends RealmObject {
 
   @Nullable public String getRestaurantWebPage() {
     return restaurantWebPage;
+  }
+
+  public int getId() {
+    return id;
   }
 }

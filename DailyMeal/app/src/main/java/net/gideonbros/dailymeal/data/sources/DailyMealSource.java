@@ -9,6 +9,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import net.gideonbros.dailymeal.data.models.DailyMealModel;
+import net.gideonbros.dailymeal.data.models.RestaurantModel;
 
 /**
  * Created by Matija on 3.3.2017..
@@ -31,13 +32,18 @@ import net.gideonbros.dailymeal.data.models.DailyMealModel;
           .contains("restaurant.restaurantName", searchString, Case.INSENSITIVE)
           .or()
           .contains("restaurant.restaurantAddress", searchString, Case.INSENSITIVE)
-          .findAll()
-          .sort("dailyMealName");
+          .findAll();
     }
   }
 
-  @Nullable @Override public DailyMealModel getData(@NonNull int id) {
+  @Nullable @Override public DailyMealModel getData(int id) {
     return mRealm.where(DailyMealModel.class).equalTo("id", id).findFirst();
+  }
+
+  @Nullable
+  @Override
+  public RestaurantModel getRestaurant(int id) {
+    return mRealm.where(DailyMealModel.class).equalTo("restaurant.id", id).findFirst().getRestaurant();
   }
 
   @Override public void saveData(@NonNull List<DailyMealModel> list) {

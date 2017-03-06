@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import net.gideonbros.dailymeal.dagger.IAppComponent;
+import net.gideonbros.dailymeal.data.models.RestaurantModel;
 import net.gideonbros.dailymeal.util.GenerateDataUtil;
 import net.gideonbros.dailymeal.data.models.DailyMealModel;
 import net.gideonbros.dailymeal.data.repositories.DailyMealRepository;
@@ -38,8 +39,9 @@ public class DailyMealService implements IDailyMealService {
     return repository.getData(searchString);
   }
 
-  @Override public DailyMealModel getLocalDailyMealsById(int id) {
-    return repository.getData(id);
+  @Override
+  public RestaurantModel getRestaurantById(int id) {
+    return repository.getRestaurant(id);
   }
 
   public void getDailyMealsAsync(Double latitude, Double longitude, Integer range,
