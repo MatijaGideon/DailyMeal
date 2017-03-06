@@ -27,8 +27,7 @@
 
         <activity
             android:name=".RestaurantActivity"
-            android:label="@string/restaurant_details"
-            android:theme="@style/AppThemeRestaurant">
+            android:label="@string/restaurant_details">
         </activity>
 
         <receiver

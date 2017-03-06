@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/card_image_height"
             android:scaleType="centerCrop"
-            tools:src="@drawable/holder_carbonnara" />
+            tools:src="@drawable/a" />
 
         <TextView
             android:id="@+id/card_title"
@@ -29,8 +29,10 @@
             android:layout_alignBottom="@+id/card_image"
             android:layout_marginLeft="@dimen/md_keylines"
             tools:text="@string/item_title_holder"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/card_text"
@@ -43,7 +45,7 @@
             android:layout_marginRight="@dimen/md_keylines"
             tools:text="@string/item_description_holder"
             android:ellipsize="end"
-            android:singleLine="true"
+            android:maxLines="2"
             android:textColor="@android:color/darker_gray"
             android:textSize="@dimen/article_subheading" />
 

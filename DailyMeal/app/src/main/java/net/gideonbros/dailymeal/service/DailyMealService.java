@@ -1,12 +1,20 @@
 package net.gideonbros.dailymeal.service;
 
 import android.util.Log;
+import io.reactivex.Completable;
+import io.reactivex.CompletableObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import io.realm.RealmResults;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import net.gideonbros.dailymeal.dagger.IAppComponent;
+import net.gideonbros.dailymeal.util.GenerateDataUtil;
 import net.gideonbros.dailymeal.data.models.DailyMealModel;
 import net.gideonbros.dailymeal.data.repositories.DailyMealRepository;
+import net.gideonbros.dailymeal.util.RandomUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,7 +55,7 @@ public class DailyMealService implements IDailyMealService {
       }
 
       @Override public void onFailure(Call<List<DailyMealModel>> call, Throwable t) {
-
+        Log.d(TAG, " onError : " + t.getMessage());
       }
     });
   }
@@ -55,5 +63,29 @@ public class DailyMealService implements IDailyMealService {
   public void getGeneratedDailyMealsAsync(Double latitude, Double longitude, Integer range,
       Integer maxNumberOfMeals) {
 
+    final int min = 1;
+    final int max = 3;
+
+    Completable completable = Completable.timer(RandomUtil.getRandomNumber(min, max), TimeUnit.SECONDS);
+
+    completable.subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(getCompletableObserver());
+  }
+
+  private CompletableObserver getCompletableObserver() {
+    return new CompletableObserver() {
+      @Override public void onSubscribe(Disposable d) {
+        Log.d(TAG, " onSubscribe : " + d.isDisposed());
+      }
+
+      @Override public void onComplete() {
+        repository.saveData(GenerateDataUtil.getDailyMeals());
+      }
+
+      @Override public void onError(Throwable e) {
+        Log.d(TAG, " onError : " + e.getMessage());
+      }
+    };
   }
 }

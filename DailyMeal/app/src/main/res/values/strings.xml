@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DailyMeal</string>
+    <string name="app_name">Daily Meal</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -11,10 +11,12 @@
 
     <string name="welcome">Welcome to Daily Meal App</string>string>
 
+    <string name="order_food">Find tasty food near you</string>string>
+
     <string name="restaurant_details">Restaurant details</string>string>
 
     <string name="location_connection_failed">Location connection_failed</string>
-    <string name="location_detected">Location detected - Latitude:  %1$d , Longitude: %2$d </string>
+    <string name="location_detected">Last Location (Latitude: %1$.2f , Longitude: %2$.2f) </string>
     <string name="no_location_detected">Location not detected</string>
     <string name="permission_location_rationale">Location permission is needed to get the location.</string>
     <string name="permission_location_available">Location permission has been granted.</string>
@@ -25,4 +27,7 @@
     <string name="ok">OK</string>
 
     <string name="search_by">Search by name, restaurant, location...</string>
+
+    <string name="communicate">Communicate</string>
+    <string name="menu_rate">Rate app</string>
 </resources>

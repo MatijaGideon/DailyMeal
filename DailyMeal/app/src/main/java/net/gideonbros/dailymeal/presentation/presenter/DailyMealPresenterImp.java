@@ -26,7 +26,7 @@ public class DailyMealPresenterImp implements IDailyMealPresenter {
 
   @Override public void setView(IDailyMealView view) {
     this.view = view;
-    this.view.showDailyMeals(service.getLocalDailyMeals(EMPTY_STRING));
+    this.view.initDailyMeals(service.getLocalDailyMeals(EMPTY_STRING));
   }
 
   @Override public void removeView(IDailyMealView view) {
@@ -34,7 +34,9 @@ public class DailyMealPresenterImp implements IDailyMealPresenter {
   }
 
   @Override public void startCollectingData(Double latitude, Double longitude) {
-    service.getDailyMealsAsync(latitude, longitude, RANGE, MAX_NUM_OF_RESULTS);
+    //real API service
+    //service.getDailyMealsAsync(latitude, longitude, RANGE, MAX_NUM_OF_RESULTS);
+    service.getGeneratedDailyMealsAsync(latitude, longitude, RANGE, MAX_NUM_OF_RESULTS);
   }
 
   @Override public void filterData(String searchString) {

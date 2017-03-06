@@ -23,7 +23,7 @@ import net.gideonbros.dailymeal.data.models.DailyMealModel;
 
   @Nullable @Override public RealmResults<DailyMealModel> getData(String searchString) {
     if (searchString == null || "".equals(searchString)) {
-      return mRealm.where(DailyMealModel.class).findAll().sort("");
+      return mRealm.where(DailyMealModel.class).findAll().sort("dailyMealName");
     } else {
       return mRealm.where(DailyMealModel.class)
           .contains("dailyMealName", searchString, Case.INSENSITIVE)
@@ -31,7 +31,8 @@ import net.gideonbros.dailymeal.data.models.DailyMealModel;
           .contains("restaurant.restaurantName", searchString, Case.INSENSITIVE)
           .or()
           .contains("restaurant.restaurantAddress", searchString, Case.INSENSITIVE)
-          .findAll();
+          .findAll()
+          .sort("dailyMealName");
     }
   }
 

@@ -19,11 +19,11 @@ import net.gideonbros.dailymeal.presentation.view.adapter.DailyMealRecyclerAdapt
 public class DailyMealActivity extends NetworkActivity
     implements IDailyMealView, GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener, SearchView.OnQueryTextListener,
-    DailyMealRecyclerAdapter.OnOrderClickListener {
+    DailyMealRecyclerAdapter.OnClickListener {
 
   @Inject IDailyMealPresenter presenter;
 
-  DailyMealRecyclerAdapter.OnOrderClickListener onOrderClickListener;
+  DailyMealRecyclerAdapter.OnClickListener onOrderClickListener;
   DailyMealRecyclerAdapter adapter;
   SearchView searchView;
 
@@ -31,8 +31,14 @@ public class DailyMealActivity extends NetworkActivity
     return R.layout.activity_daily_meal;
   }
 
+  @Override int getMenuLayoutId() {
+    return R.menu.daily_meal;
+  }
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    ((DailyMealApplication) getApplication()).getComponent().inject(DailyMealActivity.this);
+
     initRecyclerView();
     presenter.setView(this);
   }
@@ -44,7 +50,6 @@ public class DailyMealActivity extends NetworkActivity
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     super.onCreateOptionsMenu(menu);
-    getMenuInflater().inflate(R.menu.daily_meal, menu);
 
     final MenuItem searchItem = menu.findItem(R.id.action_search);
     searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
@@ -65,7 +70,7 @@ public class DailyMealActivity extends NetworkActivity
   @Override void onLocationFound() {
     Snackbar.make(relativeLayout,
         String.format(getResources().getString(R.string.location_detected),
-            mLastLocation.getLatitude(), mLastLocation.getLatitude()), Snackbar.LENGTH_SHORT)
+            mLastLocation.getLatitude(), mLastLocation.getLongitude()), Snackbar.LENGTH_LONG)
         .show();
     if (checkNetworkConnection()) {
       presenter.startCollectingData(mLastLocation.getLatitude(), mLastLocation.getLatitude());
@@ -78,11 +83,16 @@ public class DailyMealActivity extends NetworkActivity
     snackbar.show();
   }
 
+  @Override public void initDailyMeals(@NonNull RealmResults<DailyMealModel> dailyMealModels) {
+    adapter.setDailyMeals(dailyMealModels);
+    adapter.addListener();
+  }
+
   @Override public void showDailyMeals(@NonNull RealmResults<DailyMealModel> dailyMealModels) {
     adapter.setDailyMeals(dailyMealModels);
   }
 
-  @Override public void onClick(DailyMealModel dailyMealModel) {
+  @Override public void onOrderClick(DailyMealModel dailyMealModel) {
 
   }
 

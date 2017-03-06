@@ -119,17 +119,18 @@ public abstract class LocationActivity extends DrawerActivity implements GoogleA
                                            @NonNull int[] grantResults) {
         if (requestCode == REQUEST_LOCATION) {
             if ((grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) || (grantResults.length == 2 && (grantResults[0] == PackageManager.PERMISSION_GRANTED || grantResults[1] == PackageManager.PERMISSION_GRANTED))) {
-                Snackbar.make(relativeLayout, R.string.permission_location_available,
-                        Snackbar.LENGTH_SHORT).show();
+                //Snackbar.make(relativeLayout, R.string.permission_location_available,
+                //        Snackbar.LENGTH_SHORT).show();
             } else {
                 Snackbar.make(relativeLayout, R.string.permission_location_not_granted,
-                        Snackbar.LENGTH_SHORT)
+                        Snackbar.LENGTH_INDEFINITE)
                         .show();
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
+
 
 }
 

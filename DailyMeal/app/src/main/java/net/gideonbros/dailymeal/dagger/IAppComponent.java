@@ -1,5 +1,6 @@
 package net.gideonbros.dailymeal.dagger;
 
+import net.gideonbros.dailymeal.DailyMealActivity;
 import net.gideonbros.dailymeal.DrawerActivity;
 import net.gideonbros.dailymeal.RestaurantActivity;
 import net.gideonbros.dailymeal.presentation.presenter.DailyMealPresenterImp;
@@ -18,7 +19,7 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class})
 public interface IAppComponent {
-    void inject(DrawerActivity activity);
+    void inject(DailyMealActivity activity);
     void inject(DailyMealPresenterImp presenter);
 
     void inject(RestaurantActivity activity);
