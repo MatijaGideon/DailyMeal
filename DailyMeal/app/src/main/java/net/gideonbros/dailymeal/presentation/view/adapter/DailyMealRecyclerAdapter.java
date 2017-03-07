@@ -15,6 +15,8 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
+
+import butterknife.OnClick;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 import net.gideonbros.dailymeal.R;
@@ -69,7 +71,7 @@ public class DailyMealRecyclerAdapter extends RecyclerView.Adapter
     notifyDataSetChanged();
   }
 
-  public class DailyMealViewHolder extends RecyclerView.ViewHolder {
+  public class DailyMealViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     @BindView(R.id.card_image) ImageView dailyMealImage;
     @BindView(R.id.card_title) TextView dailyMealTitle;
     @BindView(R.id.card_text) TextView dailyMealDescription;
@@ -93,14 +95,16 @@ public class DailyMealRecyclerAdapter extends RecyclerView.Adapter
       } else {
         Glide.clear(dailyMealImage);
       }
-
       dailyMealTitle.setText(dailyMealModel.getDailyMealName());
       dailyMealDescription.setText(dailyMealModel.getDailyMealDescription());
-      dailyMealOrder.setOnClickListener(new View.OnClickListener() {
-        @Override public void onClick(View v) {
-          listener.onOrderClick(dailyMealModel.getRestaurant().getId());
-        }
-      });
     }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.action_button) {
+            listener.onOrderClick(dailyMeals.get(getAdapterPosition()).getRestaurant().getId());
+        }
+    }
+
   }
 }
