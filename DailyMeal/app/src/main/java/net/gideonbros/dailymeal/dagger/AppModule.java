@@ -3,6 +3,7 @@ package net.gideonbros.dailymeal.dagger;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import io.reactivex.Completable;
 import net.gideonbros.dailymeal.DailyMealApplication;
 import net.gideonbros.dailymeal.data.repositories.DailyMealRepository;
 import net.gideonbros.dailymeal.data.sources.DailyMealSource;
@@ -21,6 +22,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import io.realm.Realm;
+import net.gideonbros.dailymeal.util.TimerUtil;
 
 /**
  * Created by Matija on 3.3.2017..
@@ -89,5 +91,9 @@ public class AppModule {
         return new RestaurantPresenterImp(app.getComponent());
     }
 
+    @Provides
+    @Singleton Completable provideCompletableTimer() {
+        return TimerUtil.getCompletable();
+    }
 }
 

@@ -26,5 +26,4 @@ public interface IAppComponent {
     void inject(RestaurantPresenterImp presenter);
 
     void inject(DailyMealService service);
-    void inject(NetworkReceiver receiver);
 }

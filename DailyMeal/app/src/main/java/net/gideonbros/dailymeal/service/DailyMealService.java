@@ -31,6 +31,8 @@ public class DailyMealService implements IDailyMealService {
 
   @Inject DailyMealRepository repository;
 
+  @Inject Completable completable;
+
   public DailyMealService(IAppComponent appComponent) {
     appComponent.inject(this);
   }
@@ -64,16 +66,7 @@ public class DailyMealService implements IDailyMealService {
 
   public void getGeneratedDailyMealsAsync(Double latitude, Double longitude, Integer range,
       Integer maxNumberOfMeals) {
-
-    final int min = 1;
-    final int max = 8;
-
-    Completable completable =
-        Completable.timer(RandomUtil.getRandomNumber(min, max), TimeUnit.SECONDS);
-
-    completable.subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(getCompletableObserver());
+    completable.subscribe(getCompletableObserver());
   }
 
   private CompletableObserver getCompletableObserver() {

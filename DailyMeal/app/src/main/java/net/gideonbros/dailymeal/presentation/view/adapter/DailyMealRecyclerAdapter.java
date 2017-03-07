@@ -83,13 +83,11 @@ public class DailyMealRecyclerAdapter extends RecyclerView.Adapter
 
     @BindView(R.id.action_button) Button dailyMealOrder;
     @BindView(R.id.directions_button) ImageButton dailyMealDirection;
-    @BindView(R.id.favorite_button) ImageButton dailyMealFavorite;
 
     public DailyMealViewHolder(View view) {
       super(view);
       ButterKnife.bind(this, itemView);
       dailyMealOrder.setOnClickListener(this);
-      dailyMealFavorite.setOnClickListener(this);
       dailyMealDirection.setOnClickListener(this);
     }
 
@@ -126,9 +124,6 @@ public class DailyMealRecyclerAdapter extends RecyclerView.Adapter
       switch (v.getId()) {
         case R.id.action_button:
           listener.onOrderClick(dailyMeals.get(getAdapterPosition()).getRestaurant().getId());
-          break;
-        case R.id.favorite_button:
-
           break;
         case R.id.directions_button:
           listener.onDirectionsClick(

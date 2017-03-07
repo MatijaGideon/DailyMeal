@@ -75,7 +75,6 @@ public class DailyMealActivity extends NetworkActivity
         String.format(getResources().getString(R.string.location_detected),
             lastLocation.getLatitude(), lastLocation.getLongitude()), Snackbar.LENGTH_LONG).show();
     if (checkNetworkConnection()) {
-      if (adapter.getItemCount() == 0) progressBar.setVisibility(View.VISIBLE);
       presenter.startCollectingData(lastLocation.getLatitude(), lastLocation.getLatitude());
     }
   }
@@ -94,6 +93,14 @@ public class DailyMealActivity extends NetworkActivity
 
   @Override public void showDailyMeals(@NonNull RealmResults<DailyMealModel> dailyMealModels) {
     adapter.setDailyMeals(dailyMealModels);
+  }
+
+  @Override public void showProgressBar() {
+    if(adapter.getItemCount() == 0) progressBar.setVisibility(View.VISIBLE);
+  }
+
+  @Override public void hideProgressBar() {
+    progressBar.setVisibility(View.GONE);
   }
 
   @Override public void onOrderClick(int restaurantId) {

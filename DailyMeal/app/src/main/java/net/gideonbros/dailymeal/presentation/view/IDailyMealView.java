@@ -14,4 +14,7 @@ public interface IDailyMealView {
     void showWelcomeMessage();
     void initDailyMeals(@NonNull RealmResults<DailyMealModel> dailyMealModels);
     void showDailyMeals(@NonNull RealmResults<DailyMealModel> dailyMealModels);
+
+    void showProgressBar();
+    void hideProgressBar();
 }
