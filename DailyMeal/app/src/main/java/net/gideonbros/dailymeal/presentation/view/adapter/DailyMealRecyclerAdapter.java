@@ -16,8 +16,6 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
-
-import butterknife.OnClick;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
@@ -39,6 +37,8 @@ public class DailyMealRecyclerAdapter extends RecyclerView.Adapter
 
   public interface OnClickListener {
     void onOrderClick(int restaurantId);
+
+    void onDirectionsClick(String restaurantLocation);
   }
 
   public DailyMealRecyclerAdapter(Context context, OnClickListener listener) {
@@ -89,6 +89,8 @@ public class DailyMealRecyclerAdapter extends RecyclerView.Adapter
       super(view);
       ButterKnife.bind(this, itemView);
       dailyMealOrder.setOnClickListener(this);
+      dailyMealFavorite.setOnClickListener(this);
+      dailyMealDirection.setOnClickListener(this);
     }
 
     void setData(@NonNull final DailyMealModel dailyMealModel) {
@@ -121,7 +123,19 @@ public class DailyMealRecyclerAdapter extends RecyclerView.Adapter
     }
 
     @Override public void onClick(View v) {
-      listener.onOrderClick(dailyMeals.get(getAdapterPosition()).getRestaurant().getId());
+      switch (v.getId()) {
+        case R.id.action_button:
+          listener.onOrderClick(dailyMeals.get(getAdapterPosition()).getRestaurant().getId());
+          break;
+        case R.id.favorite_button:
+
+          break;
+        case R.id.directions_button:
+          listener.onDirectionsClick(
+              dailyMeals.get(getAdapterPosition()).getRestaurant().getRestaurantAddress());
+          break;
+        default:
+      }
     }
   }
 }

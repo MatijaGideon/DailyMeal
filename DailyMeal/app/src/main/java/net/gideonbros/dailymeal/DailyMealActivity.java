@@ -1,6 +1,7 @@
 package net.gideonbros.dailymeal;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -9,8 +10,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import com.google.android.gms.common.api.GoogleApiClient;
 import io.realm.RealmResults;
+import java.util.Locale;
 import javax.inject.Inject;
 import net.gideonbros.dailymeal.data.models.DailyMealModel;
 import net.gideonbros.dailymeal.presentation.presenter.IDailyMealPresenter;
@@ -70,9 +73,9 @@ public class DailyMealActivity extends NetworkActivity
   @Override void onLocationFound() {
     Snackbar.make(relativeLayout,
         String.format(getResources().getString(R.string.location_detected),
-            lastLocation.getLatitude(), lastLocation.getLongitude()), Snackbar.LENGTH_LONG)
-        .show();
+            lastLocation.getLatitude(), lastLocation.getLongitude()), Snackbar.LENGTH_LONG).show();
     if (checkNetworkConnection()) {
+      if (adapter.getItemCount() == 0) progressBar.setVisibility(View.VISIBLE);
       presenter.startCollectingData(lastLocation.getLatitude(), lastLocation.getLatitude());
     }
   }
@@ -84,6 +87,7 @@ public class DailyMealActivity extends NetworkActivity
   }
 
   @Override public void initDailyMeals(@NonNull RealmResults<DailyMealModel> dailyMealModels) {
+    progressBar.setVisibility(View.GONE);
     adapter.setDailyMeals(dailyMealModels);
     adapter.addListener();
   }
@@ -98,6 +102,13 @@ public class DailyMealActivity extends NetworkActivity
     startActivity(myIntent);
   }
 
+  @Override public void onDirectionsClick(String restaurantAddress) {
+    String uri = String.format(Locale.ENGLISH, "google.navigation:q=%s", restaurantAddress);
+    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+    intent.setPackage("com.google.android.apps.maps");
+    startActivity(intent);
+  }
+
   protected void initRecyclerView() {
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
     linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -106,5 +117,4 @@ public class DailyMealActivity extends NetworkActivity
     adapter = new DailyMealRecyclerAdapter(this, this);
     recyclerView.setAdapter(adapter);
   }
-
 }

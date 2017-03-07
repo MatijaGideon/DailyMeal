@@ -12,6 +12,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -34,6 +35,7 @@ public abstract class LocationActivity extends DrawerActivity
 
   abstract void onLocationFound();
 
+  @BindView(R.id.recycler_progress_bar) protected ProgressBar progressBar;
   @BindView(R.id.fab) protected FloatingActionButton fab;
   @BindView(R.id.daily_meal_recycler_view) protected RecyclerView recyclerView;
   @BindView(R.id.content_daily_meal) protected RelativeLayout relativeLayout;
@@ -57,7 +59,6 @@ public abstract class LocationActivity extends DrawerActivity
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
     if (checkPlayServices()) {
       initGoogleApiClient();
       createLocationRequest();
@@ -167,9 +168,6 @@ public abstract class LocationActivity extends DrawerActivity
     }
   }
 
-  /**
-   * Stopping location updates
-   */
   protected void stopLocationUpdates() {
     LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
   }

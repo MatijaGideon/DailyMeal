@@ -1,6 +1,7 @@
 package net.gideonbros.dailymeal.presentation.presenter;
 
 import android.support.annotation.NonNull;
+import android.view.View;
 import javax.inject.Inject;
 import net.gideonbros.dailymeal.dagger.IAppComponent;
 import net.gideonbros.dailymeal.presentation.view.IDailyMealView;

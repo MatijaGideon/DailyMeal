@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import net.gideonbros.dailymeal.dagger.IAppComponent;
-import net.gideonbros.dailymeal.data.models.RestaurantModel;
-import net.gideonbros.dailymeal.util.GenerateDataUtil;
 import net.gideonbros.dailymeal.data.models.DailyMealModel;
+import net.gideonbros.dailymeal.data.models.RestaurantModel;
 import net.gideonbros.dailymeal.data.repositories.DailyMealRepository;
+import net.gideonbros.dailymeal.util.GenerateDataUtil;
 import net.gideonbros.dailymeal.util.RandomUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -66,9 +66,10 @@ public class DailyMealService implements IDailyMealService {
       Integer maxNumberOfMeals) {
 
     final int min = 1;
-    final int max = 3;
+    final int max = 8;
 
-    Completable completable = Completable.timer(RandomUtil.getRandomNumber(min, max), TimeUnit.SECONDS);
+    Completable completable =
+        Completable.timer(RandomUtil.getRandomNumber(min, max), TimeUnit.SECONDS);
 
     completable.subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
