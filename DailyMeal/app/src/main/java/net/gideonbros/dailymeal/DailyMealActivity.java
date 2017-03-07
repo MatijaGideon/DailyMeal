@@ -1,7 +1,6 @@
 package net.gideonbros.dailymeal;
 
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -71,10 +70,10 @@ public class DailyMealActivity extends NetworkActivity
   @Override void onLocationFound() {
     Snackbar.make(relativeLayout,
         String.format(getResources().getString(R.string.location_detected),
-            mLastLocation.getLatitude(), mLastLocation.getLongitude()), Snackbar.LENGTH_LONG)
+            lastLocation.getLatitude(), lastLocation.getLongitude()), Snackbar.LENGTH_LONG)
         .show();
     if (checkNetworkConnection()) {
-      presenter.startCollectingData(mLastLocation.getLatitude(), mLastLocation.getLatitude());
+      presenter.startCollectingData(lastLocation.getLatitude(), lastLocation.getLatitude());
     }
   }
 

@@ -32,7 +32,8 @@ import net.gideonbros.dailymeal.data.models.RestaurantModel;
           .contains("restaurant.restaurantName", searchString, Case.INSENSITIVE)
           .or()
           .contains("restaurant.restaurantAddress", searchString, Case.INSENSITIVE)
-          .findAll();
+          .findAll()
+          .sort("dailyMealName");
     }
   }
 
@@ -40,10 +41,11 @@ import net.gideonbros.dailymeal.data.models.RestaurantModel;
     return mRealm.where(DailyMealModel.class).equalTo("id", id).findFirst();
   }
 
-  @Nullable
-  @Override
-  public RestaurantModel getRestaurant(int id) {
-    return mRealm.where(DailyMealModel.class).equalTo("restaurant.id", id).findFirst().getRestaurant();
+  @Nullable @Override public RestaurantModel getRestaurant(int id) {
+    return mRealm.where(DailyMealModel.class)
+        .equalTo("restaurant.id", id)
+        .findFirst()
+        .getRestaurant();
   }
 
   @Override public void saveData(@NonNull List<DailyMealModel> list) {

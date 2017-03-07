@@ -32,8 +32,6 @@ public abstract class DrawerActivity extends AppCompatActivity
 
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
-    @BindView(R.id.fab)
-    protected FloatingActionButton fab;
     @BindView(R.id.drawer_layout)
     protected DrawerLayout drawer;
     @BindView(R.id.nav_view)
@@ -48,14 +46,6 @@ public abstract class DrawerActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-
-        if (fab != null) fab.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null)
-                    .show();
-            }
-        });
 
         ActionBarDrawerToggle toggle =
             new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

@@ -4,36 +4,36 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
-
-    <string name="item_title_holder">Item title holder</string>
-    <string name="item_description_holder">Item description holder</string>
-
     <string name="welcome">Welcome to Daily Meal App</string>string>
+    <string name="item_title_holder">Title holder</string>
+    <string name="item_description_holder">Description holder</string>
 
-    <string name="order_food">Find tasty food near you</string>string>
 
-    <string name="restaurant_details">Restaurant details</string>string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="open">Open</string>
 
     <string name="location_connection_failed">Location connection_failed</string>
-    <string name="location_detected">Last Location (Latitude: %1$.2f , Longitude: %2$.2f) </string>
-    <string name="no_location_detected">Location not detected</string>
+    <string name="location_detected">Your location (Latitude: %1$.2f , Longitude: %2$.2f) </string>
+    <string name="no_location_detected">Location not detected, check settings</string>
     <string name="permission_location_rationale">Location permission is needed to get the location.</string>
     <string name="permission_location_available">Location permission has been granted.</string>
     <string name="permission_location_not_granted">Location permissions were not granted.</string>
-
     <string name="connected_to_network">Connected to network.</string>
     <string name="failed_to_connect_to_network">Failed to connect to network.</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
-
     <string name="location_settings_not_enabled">Location settings not enabled</string>
-    <string name="open_location_settings">Open location settings</string>
+    <string name="open_location_settings">Location settings</string>
+    <string name="location_settings_enabled">Location settings enabled</string>
+    <string name="location_settings_disabled">Location settings disabled</string>
 
     <string name="search_by">Search by name, restaurant, location...</string>
     <string name="communicate">Communicate</string>
     <string name="menu_rate">Rate app</string>
+    <string name="order_food">Find tasty food near you</string>string>
 
+    <string name="order">Order</string>
+
+    <string name="restaurant_details">Restaurant details</string>string>
     <string name="phone">Phone</string>
     <string name="email">Email</string>
     <string name="address">Address</string>

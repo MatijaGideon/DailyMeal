@@ -11,12 +11,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 
 import butterknife.OnClick;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 import net.gideonbros.dailymeal.R;
@@ -72,6 +76,7 @@ public class DailyMealRecyclerAdapter extends RecyclerView.Adapter
   }
 
   public class DailyMealViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    @BindView(R.id.progress_bar) ProgressBar progressBar;
     @BindView(R.id.card_image) ImageView dailyMealImage;
     @BindView(R.id.card_title) TextView dailyMealTitle;
     @BindView(R.id.card_text) TextView dailyMealDescription;
@@ -83,28 +88,40 @@ public class DailyMealRecyclerAdapter extends RecyclerView.Adapter
     public DailyMealViewHolder(View view) {
       super(view);
       ButterKnife.bind(this, itemView);
+      dailyMealOrder.setOnClickListener(this);
     }
 
     void setData(@NonNull final DailyMealModel dailyMealModel) {
       if (!dailyMealModel.getDailyMealImageUrl().isEmpty()) {
         Glide.with(context)
             .load(Uri.parse(dailyMealModel.getDailyMealImageUrl()))
-            .placeholder(R.mipmap.ic_launcher)
+            .listener(new RequestListener<Uri, GlideDrawable>() {
+              @Override
+              public boolean onException(Exception e, Uri model, Target<GlideDrawable> target,
+                  boolean isFirstResource) {
+                progressBar.setVisibility(View.GONE);
+                return false;
+              }
+
+              @Override public boolean onResourceReady(GlideDrawable resource, Uri model,
+                  Target<GlideDrawable> target, boolean isFromMemoryCache,
+                  boolean isFirstResource) {
+                progressBar.setVisibility(View.GONE);
+                return false;
+              }
+            })
             .crossFade()
             .into(dailyMealImage);
       } else {
         Glide.clear(dailyMealImage);
       }
+
       dailyMealTitle.setText(dailyMealModel.getDailyMealName());
       dailyMealDescription.setText(dailyMealModel.getDailyMealDescription());
     }
 
-    @Override
-    public void onClick(View v) {
-        if(v.getId() == R.id.action_button) {
-            listener.onOrderClick(dailyMeals.get(getAdapterPosition()).getRestaurant().getId());
-        }
+    @Override public void onClick(View v) {
+      listener.onOrderClick(dailyMeals.get(getAdapterPosition()).getRestaurant().getId());
     }
-
   }
 }
