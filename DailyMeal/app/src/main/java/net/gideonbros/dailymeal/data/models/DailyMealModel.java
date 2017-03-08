@@ -50,4 +50,8 @@ public class DailyMealModel extends RealmObject {
   @NonNull public RestaurantModel getRestaurant() {
     return restaurant;
   }
+
+  public void setRestaurant(@NonNull RestaurantModel restaurant) {
+    this.restaurant = restaurant;
+  }
 }

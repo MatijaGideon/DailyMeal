@@ -1,4 +1,4 @@
-package net.gideonbros.dailymeal.service;
+package net.gideonbros.dailymeal.service.network;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

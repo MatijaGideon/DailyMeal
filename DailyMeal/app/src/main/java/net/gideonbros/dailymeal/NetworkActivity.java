@@ -11,6 +11,8 @@ import net.gideonbros.dailymeal.service.NetworkReceiver;
 public abstract class NetworkActivity extends LocationActivity
     implements NetworkReceiver.ConnectionListener {
 
+  abstract void onNetworkConnected();
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     initCheckNetworkConnection();
@@ -36,6 +38,7 @@ public abstract class NetworkActivity extends LocationActivity
 
   void showInfo(boolean isConnected) {
     if (isConnected) {
+      onNetworkConnected();
       Snackbar.make(relativeLayout, R.string.connected_to_network, Snackbar.LENGTH_SHORT).show();
     } else {
       Snackbar.make(relativeLayout, R.string.failed_to_connect_to_network,

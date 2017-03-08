@@ -11,6 +11,7 @@ import net.gideonbros.dailymeal.dagger.IAppComponent;
 import net.gideonbros.dailymeal.data.models.DailyMealModel;
 import net.gideonbros.dailymeal.data.models.RestaurantModel;
 import net.gideonbros.dailymeal.data.repositories.DailyMealRepository;
+import net.gideonbros.dailymeal.service.network.RetrofitApiService;
 import net.gideonbros.dailymeal.util.GenerateDataUtil;
 import retrofit2.Call;
 import retrofit2.Callback;

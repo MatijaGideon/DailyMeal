@@ -1,4 +1,4 @@
-package net.gideonbros.dailymeal.service;
+package net.gideonbros.dailymeal.service.network;
 
 import net.gideonbros.dailymeal.data.models.DailyMealModel;
 

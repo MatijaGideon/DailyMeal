@@ -14,8 +14,8 @@ import net.gideonbros.dailymeal.presentation.presenter.IRestaurantPresenter;
 import net.gideonbros.dailymeal.presentation.presenter.RestaurantPresenterImp;
 import net.gideonbros.dailymeal.service.DailyMealService;
 import net.gideonbros.dailymeal.service.IDailyMealService;
-import net.gideonbros.dailymeal.service.RetrofitApiService;
-import net.gideonbros.dailymeal.service.RetrofitManager;
+import net.gideonbros.dailymeal.service.network.RetrofitApiService;
+import net.gideonbros.dailymeal.service.network.RetrofitManager;
 
 import javax.inject.Singleton;
 

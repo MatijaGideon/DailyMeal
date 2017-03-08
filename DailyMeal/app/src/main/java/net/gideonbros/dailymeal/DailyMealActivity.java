@@ -79,6 +79,11 @@ public class DailyMealActivity extends NetworkActivity
     }
   }
 
+  @Override void onNetworkConnected() {
+    if(lastLocation != null)
+      presenter.startCollectingData(lastLocation.getLatitude(), lastLocation.getLatitude());
+  }
+
   @Override public void showWelcomeMessage() {
     Snackbar snackbar =
         Snackbar.make(relativeLayout, getString(R.string.welcome), Snackbar.LENGTH_SHORT);
