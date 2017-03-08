@@ -1,7 +1,6 @@
 package net.gideonbros.dailymeal.util;
 
-import net.gideonbros.dailymeal.repeat.RepeatRule;
-import net.gideonbros.dailymeal.util.RandomUtil;
+import net.gideonbros.dailymeal.repeatrule.RepeatRule;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;

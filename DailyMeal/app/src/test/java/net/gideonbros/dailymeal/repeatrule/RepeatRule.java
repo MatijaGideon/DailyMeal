@@ -1,4 +1,4 @@
-package net.gideonbros.dailymeal.repeat;
+package net.gideonbros.dailymeal.repeatrule;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

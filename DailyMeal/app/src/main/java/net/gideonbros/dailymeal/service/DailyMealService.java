@@ -3,19 +3,15 @@ package net.gideonbros.dailymeal.service;
 import android.util.Log;
 import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import io.realm.RealmResults;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import net.gideonbros.dailymeal.dagger.IAppComponent;
 import net.gideonbros.dailymeal.data.models.DailyMealModel;
 import net.gideonbros.dailymeal.data.models.RestaurantModel;
 import net.gideonbros.dailymeal.data.repositories.DailyMealRepository;
 import net.gideonbros.dailymeal.util.GenerateDataUtil;
-import net.gideonbros.dailymeal.util.RandomUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,8 +37,7 @@ public class DailyMealService implements IDailyMealService {
     return repository.getData(searchString);
   }
 
-  @Override
-  public RestaurantModel getRestaurantById(int id) {
+  @Override public RestaurantModel getRestaurantById(int id) {
     return repository.getRestaurant(id);
   }
 
