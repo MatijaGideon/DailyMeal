@@ -1,4 +1,4 @@
-package net.gideonbros.dailymeal;
+package net.gideonbros.dailymeal.presentation.view.activities;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -22,6 +22,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import net.gideonbros.dailymeal.R;
 
 /**
  * Created by Matija on 5.3.2017..
@@ -132,7 +133,8 @@ public abstract class LocationActivity extends DrawerActivity
       LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest,
           this);
       Location location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-      if (location != null && (lastLocation == null || bundle != null || isLocationChanged(location, lastLocation))) {
+      if (location != null && (lastLocation == null || bundle != null || isLocationChanged(location,
+          lastLocation))) {
         lastLocation = location;
         onLocationFound();
       } else if (location == null) {

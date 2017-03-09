@@ -2,9 +2,7 @@ package net.gideonbros.dailymeal.service.network;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import net.gideonbros.dailymeal.data.models.DailyMealModel;
-
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -14,22 +12,24 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class RetrofitManager {
-    private static final String API_ENDPOINT = "http://api.dailymeal.com";
+  private static final String API_ENDPOINT = "http://api.dailymeal.com";
 
-    public static RetrofitApiService getService(){
-        OkHttpClient client = new OkHttpClient();
+  private static final String API_KEY = "e1ae0e51ead7122efda060f89b47d0d2";
 
-        final GsonBuilder builder = new GsonBuilder().registerTypeAdapter(DailyMealModel.class,
-                new JsonSerializationAdapter());
+  public static RetrofitApiService getService() {
+    OkHttpClient client = new OkHttpClient();
 
-        final Gson gson = builder.create();
+    final GsonBuilder builder =
+        new GsonBuilder().registerTypeAdapter(DailyMealModel.class, new JsonSerializationAdapter());
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(API_ENDPOINT)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(client)
-                .build();
+    final Gson gson = builder.create();
 
-        RetrofitApiService service = retrofit.create(RetrofitApiService.class);
-        return service;
-    }
+    Retrofit retrofit = new Retrofit.Builder().baseUrl(API_ENDPOINT)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .client(client)
+        .build();
+
+    RetrofitApiService service = retrofit.create(RetrofitApiService.class);
+    return service;
+  }
 }

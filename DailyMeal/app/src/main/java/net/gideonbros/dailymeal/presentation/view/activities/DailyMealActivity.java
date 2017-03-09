@@ -1,4 +1,4 @@
-package net.gideonbros.dailymeal;
+package net.gideonbros.dailymeal.presentation.view.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +15,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import io.realm.RealmResults;
 import java.util.Locale;
 import javax.inject.Inject;
+import net.gideonbros.dailymeal.DailyMealApplication;
+import net.gideonbros.dailymeal.R;
 import net.gideonbros.dailymeal.data.models.DailyMealModel;
 import net.gideonbros.dailymeal.presentation.presenter.IDailyMealPresenter;
 import net.gideonbros.dailymeal.presentation.view.IDailyMealView;
@@ -41,6 +43,8 @@ public class DailyMealActivity extends NetworkActivity
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     ((DailyMealApplication) getApplication()).getComponent().inject(DailyMealActivity.this);
+
+    showWelcomeMessage();
 
     initRecyclerView();
     presenter.setView(this);
@@ -80,8 +84,9 @@ public class DailyMealActivity extends NetworkActivity
   }
 
   @Override void onNetworkConnected() {
-    if(lastLocation != null)
+    if (lastLocation != null) {
       presenter.startCollectingData(lastLocation.getLatitude(), lastLocation.getLatitude());
+    }
   }
 
   @Override public void showWelcomeMessage() {
@@ -101,7 +106,7 @@ public class DailyMealActivity extends NetworkActivity
   }
 
   @Override public void showProgressBar() {
-    if(adapter.getItemCount() == 0) progressBar.setVisibility(View.VISIBLE);
+    if (adapter.getItemCount() == 0) progressBar.setVisibility(View.VISIBLE);
   }
 
   @Override public void hideProgressBar() {

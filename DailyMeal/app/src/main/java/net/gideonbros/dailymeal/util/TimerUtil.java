@@ -10,8 +10,9 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class TimerUtil {
+  //simulate data fetching
   private static final int min = 1;
-  private static final int max = 3;
+  private static final int max = 4;
 
   public static Completable getCompletable() {
     Completable completable =

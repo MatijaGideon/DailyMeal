@@ -1,7 +1,9 @@
-package net.gideonbros.dailymeal;
+package net.gideonbros.dailymeal.presentation.view.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import net.gideonbros.dailymeal.DailyMealApplication;
+import net.gideonbros.dailymeal.R;
 import net.gideonbros.dailymeal.service.NetworkReceiver;
 
 /**

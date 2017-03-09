@@ -16,7 +16,7 @@ public class GenerateDataUtil {
           "info@gastronhome.co.uk", "http://gastronhome.co.uk/");
   static final RestaurantModel theLedbury =
       new RestaurantModel(1, "The Kedbury", "127 Ledbury Road, London", "+44 20 7792 9090",
-          "http://www.bontakstravels.com/wp-content/uploads/2013/07/img_8606theledbury.jpg",
+          "http://i.telegraph.co.uk/multimedia/archive/01967/ledbury_riot_1967482c.jpg",
           "info@theledbury.com ", "http://www.theledbury.com/");
   static final RestaurantModel typingRoom =
       new RestaurantModel(2, "Typing Room", "8 Patriot Square, London", "+44 20 7871 0461",
@@ -39,6 +39,10 @@ public class GenerateDataUtil {
       new RestaurantModel(6, "Medlar", "438 Kings Road , London", "+44 20 7349 1900",
           "http://www.medlarrestaurant.co.uk/files/_sjh6513-150.jpg", "info@medlarrestaurant.co.uk",
           "http://www.medlarrestaurant.co.uk/");
+  static final RestaurantModel nama =
+      new RestaurantModel(7, "Nama", "110 Talbot Rd, London", "+44 20 7313 4638",
+          "http://www.julieslifestyle.com/sites/default/files/news_cover/nama-foods-560x560.jpg", " info@namafoods.com",
+          "https://namafoods.com/");
 
   public static List<DailyMealModel> getDailyMeals() {
     List<DailyMealModel> dailyMeals = new ArrayList<>();
@@ -50,6 +54,7 @@ public class GenerateDataUtil {
     restaurants.add(marianne);
     restaurants.add(sevenParkPlace);
     restaurants.add(medlar);
+    restaurants.add(nama);
 
     //final int min = 0;
     //final int max = restaurants.size() - 1;
@@ -95,6 +100,12 @@ public class GenerateDataUtil {
             "http://pictures.food.com/api/file/gpcRqESQQZGx9GUrVljG-IMG_0704.jpg/convert?loc=/pictures.food.com/recipes/38/74/8/uXUajHqyRq0TEyO7rfDX_IMG_0704.jpg&width=560&height=420&fit=crop&flags=progressive&quality=95",
             "Just like I get at my favorite Chinese restaurant", restaurants.get(6));
     dailyMeals.add(chineseFriedRice);
+
+    DailyMealModel fajitas =
+        new DailyMealModel(7, "Chipotle Chicken Fajitas", "These spicy chicken fajitas take barely any time to make.",
+            "http://clv.h-cdn.co/assets/16/06/1600x2400/gallery-1455298956-clx010116brkfeature-04.jpg",
+            "They taste great!", restaurants.get(7));
+    dailyMeals.add(fajitas);
 
     return dailyMeals;
   }

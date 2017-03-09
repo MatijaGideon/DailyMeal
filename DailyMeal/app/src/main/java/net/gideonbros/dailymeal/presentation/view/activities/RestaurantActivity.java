@@ -1,4 +1,4 @@
-package net.gideonbros.dailymeal;
+package net.gideonbros.dailymeal.presentation.view.activities;
 
 import android.Manifest;
 import android.content.Intent;
@@ -10,7 +10,6 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -27,6 +26,8 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import java.util.Locale;
 import javax.inject.Inject;
+import net.gideonbros.dailymeal.DailyMealApplication;
+import net.gideonbros.dailymeal.R;
 import net.gideonbros.dailymeal.data.models.RestaurantModel;
 import net.gideonbros.dailymeal.presentation.presenter.IRestaurantPresenter;
 import net.gideonbros.dailymeal.presentation.view.IRestaurantView;
@@ -38,7 +39,6 @@ import net.gideonbros.dailymeal.presentation.view.IRestaurantView;
 public class RestaurantActivity extends AppCompatActivity implements IRestaurantView {
 
   static final int REQUEST_CALL = 1;
-  static final int REQUEST_EMAIL = 2;
 
   public static final String RESTAURANT_ID = "RestaurantId";
 
@@ -166,7 +166,7 @@ public class RestaurantActivity extends AppCompatActivity implements IRestaurant
       if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
         callRestaurant();
         Snackbar.make(coordinatorLayout, R.string.permission_location_available,
-                Snackbar.LENGTH_SHORT).show();
+            Snackbar.LENGTH_SHORT).show();
       } else {
         Snackbar.make(coordinatorLayout, R.string.permission_location_not_granted,
             Snackbar.LENGTH_INDEFINITE).show();

@@ -1,8 +1,6 @@
 package net.gideonbros.dailymeal.presentation.presenter;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
-import android.view.View;
 import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
 import io.reactivex.disposables.Disposable;
@@ -10,11 +8,10 @@ import javax.inject.Inject;
 import net.gideonbros.dailymeal.dagger.IAppComponent;
 import net.gideonbros.dailymeal.presentation.view.IDailyMealView;
 import net.gideonbros.dailymeal.service.IDailyMealService;
-import net.gideonbros.dailymeal.util.GenerateDataUtil;
 
 /**
  * Created by Matija on 3.3.2017..
-     */
+ */
 
 public class DailyMealPresenterImp implements IDailyMealPresenter {
 
@@ -57,6 +54,7 @@ public class DailyMealPresenterImp implements IDailyMealPresenter {
       @Override public void onSubscribe(Disposable d) {
         view.showProgressBar();
       }
+
       @Override public void onComplete() {
         view.hideProgressBar();
       }
@@ -65,5 +63,4 @@ public class DailyMealPresenterImp implements IDailyMealPresenter {
       }
     };
   }
-
 }
